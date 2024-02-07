@@ -1,20 +1,18 @@
 from django.contrib import messages
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from users.forms import (RegisterForm, LoginForm,
-                        ProfileForm, UpdateUserForm
-                        )
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.template.loader import render_to_string
-from users.tokens import account_activation_token
-from django.contrib.auth.models import User
-from django.core.mail import EmailMessage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from posts.models import Images, Posts, Tags
+from users.forms import LoginForm, ProfileForm, RegisterForm, UpdateUserForm
 from users.models import Profile
-from posts.models import Posts, Tags, Images
+from users.tokens import account_activation_token
 
 
 def home(request):

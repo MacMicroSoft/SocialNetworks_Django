@@ -1,8 +1,8 @@
-from django.test import TestCase
-from django.contrib.auth.models import User
-from posts.models import Tags, Images, Posts
-from users.models import Profile
 from datetime import datetime
+from django.contrib.auth.models import User
+from django.test import TestCase
+from posts.models import Images, Posts, Tags
+from users.models import Profile
 
 
 class ProfileModelTest(TestCase):

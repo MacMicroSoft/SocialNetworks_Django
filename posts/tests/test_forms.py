@@ -1,6 +1,7 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-from posts.forms import CreatePost, CreateImage, CreateTags
+
+from posts.forms import CreateImage, CreatePost, CreateTags
 
 
 class FormsTestCase(TestCase):

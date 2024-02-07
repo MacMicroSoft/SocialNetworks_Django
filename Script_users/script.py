@@ -1,7 +1,11 @@
-from datetime import datetime
-import psycopg2
-import random
 import os
+import random
+import psycopg2
+from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 
 class DatabaseHandler:
@@ -32,6 +36,8 @@ class DatabaseHandler:
         if self.connection:
             self.connection.close()
             print("Disconnected from the database.")
+        else:
+            print("Your database already Disconnected")
 
     def execute_query(self, query, params=None, return_last_inserted_id=False):
         try:
@@ -48,10 +54,15 @@ class DatabaseHandler:
             print(f"Error executing query. {e}")
             self.connection.rollback()
 
-    def fetchall_all_rows(self, query, params=None):
+    def fetchall_all_rows(self, query, params=None, chunk_size=1000):
         try:
             self.cursor.execute(query, params)
-            rows = self.cursor.fetchall()
+            rows = []
+            while True:
+                chunk = self.cursor.fetchmany(chunk_size)
+                if not chunk:
+                    break
+                rows.extend(chunk)
             return rows
         except psycopg2.Error as e:
             print(f"Error fetching rows. {e}")
@@ -98,7 +109,8 @@ class RegexHandler:
         self.username = None
         self.email = None
         self.date_list = None
-        self.password = 'pbkdf2_sha256$600000$Q44hbcDrglbQCxsBJgbrcB$4lAIjhFYOClymM7vRN5ZWDYGBevRNZMNiHaNjckvQmU='
+        self.password = os.getenv('SECRET_KEY')
+
         self.data_range = None
         self.image_list = None
         self.image_folder = None

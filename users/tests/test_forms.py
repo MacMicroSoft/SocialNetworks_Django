@@ -1,5 +1,7 @@
 from django.test import TestCase
-from users.forms import LoginForm, ProfileForm, UpdateUserForm, UserCreationForm, RegisterForm
+
+from users.forms import (LoginForm, ProfileForm, RegisterForm, UpdateUserForm,
+                         UserCreationForm)
 
 
 class FormsTestCase(TestCase):

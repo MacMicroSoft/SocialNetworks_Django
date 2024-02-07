@@ -1,9 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from posts.forms import CreatePost, CreateTags, CreateImage
-from posts.models import Tags, Posts, Images
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
+from posts.forms import CreateImage, CreatePost, CreateTags
+from posts.models import Images, Posts, Tags
 
 
 @login_required

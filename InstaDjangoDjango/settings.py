@@ -9,11 +9,15 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+# isort:skip_file
 import os
-from pathlib import Path
 import sentry_sdk
+from pathlib import Path
+from dotenv import load_dotenv
 from storages.backends.s3boto3 import S3Boto3Storage
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -21,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n@!_rh2=f!r0v5ct3hnokn&(c0z(30n0pv4gyh60223z&gg%87'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -94,12 +98,12 @@ ASGI_APPLICATION = 'InstaService.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'backend',
-        'USER': 'postgres',
-        'PASSWORD': '2002182000',
-        'HOST': 'backend.c92aeqekkolm.eu-north-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 

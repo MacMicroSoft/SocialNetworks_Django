@@ -1,5 +1,5 @@
 from django import forms
-from posts.models import Posts, Tags, Images
+from posts.models import Images, Posts, Tags
 
 
 class CreatePost(forms.ModelForm):

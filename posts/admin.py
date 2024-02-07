@@ -1,6 +1,5 @@
 from django.contrib import admin
-
-from .models import Tags, Images, Posts
+from .models import Images, Posts, Tags
 
 
 @admin.register(Tags)

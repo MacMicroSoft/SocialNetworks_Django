@@ -1,10 +1,9 @@
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.templatetags.static import static
 from django.urls import path
 from . import views
-from django.conf.urls.static import static
-
 
 urlpatterns = [
     path('create_posts/', views.create_posts, name='create_posts'),
