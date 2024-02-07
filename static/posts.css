@@ -1,0 +1,77 @@
+/* Reset some default styles for better consistency */
+body, h1, h2, p, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+}
+
+.post {
+    margin-bottom: 100px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.username {
+    font-weight: bold;
+    color: #007bff; /* Blue color for the username */
+}
+
+.date {
+    color: #888;
+}
+
+.post-image {
+    width: 200px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.comment {
+    margin-top: 10px;
+    color: #333;
+}
+
+.likes {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.like-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.like-link {
+    color: #007bff; /* Blue color for the like link */
+    text-decoration: none;
+}
+
+.no-posts {
+    color: #888;
+    text-align: center;
+}

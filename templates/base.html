@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="{% block meta_description %}{% endblock %}" />
+  <meta name="keywords" content="{% block meta_keywords %}{% endblock %}" />
+  <link href="{% static 'base.css' %}" rel="stylesheet" type="text/css" />
+  <title>{% block title %}Messenger Service{% endblock %}</title>
+  <!-- Add any additional head content here -->
+</head>
+<body>
+{% block header %}
+<header class="header">
+    <nav class="navbar">
+        <ul class="nav-list">
+            {% if user.is_authenticated %}
+
+            <li><a href="{% url 'profile' user_id=request.user.profile.id %}">Profile</a></li>
+            <li><a href="/create_posts">Create Posts</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/logout">Logout</a></li>
+            {% else %}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            {% endif %}
+          </ul>
+  </nav>
+</header>
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block footer %}
+<main class="main-content">
+    <div class="card">
+        <h1>Welcome to Messenger Service</h1>
+        <p>Your go-to platform for connecting and sharing!</p>
+    </div>
+</main>
+{% endblock %}
+</body>
+</html>

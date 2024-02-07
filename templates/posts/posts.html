@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Posts{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Posts</title>
+    <link rel="stylesheet" href="{% static 'posts.css' %}" type="text/css">
+</head>
+<body>
+<main>
+    <h2>User Posts</h2>
+
+    {% for post in posts_date %}
+        <div class="post">
+            <div class="post-header">
+                <a href="{% url 'profile' user_id=post.user_id %}"><p class="username">User: {{ post.user.user }}</p></a>
+                <p class="date">{{ post.date }}</p>
+            </div>
+            {% for image in post.images.all %}
+                <img class="post-image" src="{{ image.get_absolute_url }}" alt="Post Image" onclick="openModal('{{ image.get_absolute_url }}')">
+            {% endfor %}
+            <p class="comment">{{ post.comments }}</p>
+            <div class="likes">
+                    {{ post.number_of_likes }}
+                <a href="{% url 'post_like' post.id %}"><img src="https://backend-task12-foxminded.s3.amazonaws.com/icons/icons/like_icon.png" alt="Like" class="like-icon"></a>
+                <a href="{% url 'post_like' post.id %}" class="like-link">Like</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if posts_date|length == 0 %}
+        <p class="no-posts">No posts available.</p>
+    {% endif %}
+</main>
+</body>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'your_custom_css_file.css' %}" type="text/css">
+</head>
+<body>
+    <main>
+        <h2>Edit Profile</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+
+            <label for="id_profile_picture">Profile Picture:</label>
+            {{ form.profile_picture }}
+
+            <button type="submit">Save Profile</button>
+        </form>
+    </main>
+</body>
+{% endblock %}

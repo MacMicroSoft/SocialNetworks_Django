@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Form</title>
+<link href="{% static 'profile_settings.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+
+        {{ profile_form.as_p }}
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+</html>

@@ -1,0 +1,61 @@
+{% load static %}
+<link href="{% static 'profiles.css' %}" rel="stylesheet" type="text/css" />
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-information">
+                <img src="{{ profile_date.get_absolute_url }}" alt="Profile">
+                <ul class="profile-data">
+                    <li>First Name:{{ user.first_name }}</li>
+                    <li>Last Name: {{ profile_date.user.last_name }}</li>
+                    <li>About me: {{ profile_date.bio }}</li>
+                </ul>
+        </div>
+        <div class="profile-nav">
+            <a href="{% url 'profile' user_id=request.user.profile.id%}"><img src="https://backend-task12-foxminded.s3.amazonaws.com/icons/icons/home_icon.png" alt="Home">Home</a>
+            <a href="{% url 'posts' %}"><img src="https://backend-task12-foxminded.s3.amazonaws.com/icons/icons/posts_icon.png" alt="Posts">Posts</a>
+            <a href="{% url 'create_posts' %}"><img src="https://backend-task12-foxminded.s3.amazonaws.com/icons/icons/create_post_icon.png" alt="Create post">Create post</a>
+            <a href="{% url 'profile_settings' %}"><img src="https://backend-task12-foxminded.s3.amazonaws.com/icons/icons/settings_icon.png" alt="Settings">Edit profile</a>
+        </div>
+    </div>
+
+    <div class="user-posts-block">
+        {% for post in post_date %}
+            <div class="user-post">
+                <div class="post-images-list">
+                    {% for image in post.images.all %}
+                        <img class="post-image" src="{{ image.get_absolute_url }}" alt="Post Image" onclick="openModal('{{ image.get_absolute_url }}')">
+                    {% endfor %}
+                </div>
+                <ul class="post-details">
+                    <li>{{ post.comments }} Comments</li>
+                    <li>
+                        Tags:
+                        {% for tag in post.tags.all %}
+                            {{ tag.tags }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
+<script>
+    function openModal(imgSrc) {
+        var modal = document.getElementById('myModal');
+        var modalImg = document.getElementById('modalImg');
+        modal.style.display = 'block';
+        modalImg.src = imgSrc;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+    }
+</script>
