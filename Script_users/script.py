@@ -32,6 +32,7 @@ class DatabaseHandler:
         except psycopg2.Error as e:
             print(f"Unable to connect to the database. Error: {e}")
 
+
     def disconnect(self):
         if self.connection:
             self.connection.close()

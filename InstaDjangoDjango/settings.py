@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['13.53.134.188', '127.0.0.1']
+# ALLOWED_HOSTS = ['13.53.134.188', '127.0.0.1']
 
 sentry_sdk.init(
     dsn='https://7bda1acd7a6e9424ac1b9b2e6f2b34bb@o4506583969431552.ingest.sentry.io/4506583971332096',

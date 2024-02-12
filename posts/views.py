@@ -50,17 +50,10 @@ def posts(request):
 
 
 @login_required
-def user_posts(request):
-    user_profile = request.user.profile
-    user_posts = Posts.objects.filter(user=user_profile)
-
-    return render(request, 'posts/create_posts.html', {'user_posts': user_posts})
-
-
-@login_required
 def edit_profile(request, post_id):
-    post = get_object_or_404(Posts, id=post_id)
-    if request.method == 'POST':
+    if request.method == 'PUT':
+        post = get_object_or_404(Posts, id=post_id)
+
         tags_form = CreateTags(request.POST)
         if tags_form.is_valid():
             tags_input = tags_form.cleaned_data['tags']

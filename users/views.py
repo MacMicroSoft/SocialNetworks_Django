@@ -75,7 +75,6 @@ def sign_in(request):
                 return redirect('profile', user_id=request.user.profile.id)
     else:
         form = LoginForm()
-
     return render(request, 'users/login.html', {'form': form})
 
 

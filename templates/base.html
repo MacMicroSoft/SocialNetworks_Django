@@ -17,7 +17,7 @@
             {% if user.is_authenticated %}
 
             <li><a href="{% url 'profile' user_id=request.user.profile.id %}">Profile</a></li>
-            <li><a href="/create_posts">Create Posts</a></li>
+            <li><a href="/posts/create_posts">Create Posts</a></li>
             <li><a href="/posts">Posts</a></li>
             <li><a href="/logout">Logout</a></li>
             {% else %}
