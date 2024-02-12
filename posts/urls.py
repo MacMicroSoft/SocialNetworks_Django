@@ -8,6 +8,6 @@ from . import views
 urlpatterns = [
     path('posts/', views.posts, name='posts'),
     path('posts/create/', views.create_posts, name='create_posts'),
-    path('posts/<int:post_id>/edit/', views.edit_profile, name='edit_profile'),
+    path('posts/<int:post_id>/edit/', views.edit_posts, name='edit_posts'),
     path('posts/<int:pk>/post_like/', views.post_like, name='post_like'),
 ]

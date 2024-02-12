@@ -50,7 +50,7 @@ def posts(request):
 
 
 @login_required
-def edit_profile(request, post_id):
+def edit_posts(request, post_id):
     if request.method == 'PUT':
         post = get_object_or_404(Posts, id=post_id)
 
