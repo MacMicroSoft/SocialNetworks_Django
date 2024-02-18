@@ -7,16 +7,18 @@ User._meta.get_field('email')._unique = True
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    follows = models.ManyToManyField("self",
+                                     related_name="followed_by",
+                                     symmetrical=False,
+                                     blank=True)
     avatar = ThumbnailerImageField(
         upload_to='profile_images',
         resize_source=dict(
             quality=95,
             size=(300, 300),
-            sharpen=True
-        ),
-        default='profile.png'
-    )
+            sharpen=True),
+        default='profile.png')
     bio = models.TextField(max_length=255)
 
     def get_absolute_url(self):
@@ -24,4 +26,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-

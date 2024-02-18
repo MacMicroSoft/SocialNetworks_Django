@@ -35,10 +35,11 @@ class DatabaseHandler:
 
     def disconnect(self):
         if self.connection:
-            self.connection.close()
-            print("Disconnected from the database.")
-        else:
-            print("Your database already Disconnected")
+            if not self.connection.closed:
+                self.connection.close()
+                print("Disconnected from the database.")
+            else:
+                print("Your database already Disconnected")
 
     def execute_query(self, query, params=None, return_last_inserted_id=False):
         try:
@@ -252,10 +253,10 @@ def main():
     (file_user_content, folder_avatar_content, file_bio_content,
      folder_post_image_content, file_comments_content, file_tags_content) = read_data_files(data_connect)
 
-    db = DatabaseHandler(dbname='backend',
+    db = DatabaseHandler(dbname='foxy_database',
                          user='postgres',
                          password='2002182000',
-                         host='backend.c92aeqekkolm.eu-north-1.rds.amazonaws.com',
+                         host='instadatabase.c92aeqekkolm.eu-north-1.rds.amazonaws.com',
                          port='5432')
     db.connect()
 

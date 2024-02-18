@@ -17,11 +17,6 @@
     <link rel="stylesheet" href="{% static 'create_post.css' %}" type="text/css">
 </head>
 <body>
-
-<header>
-    <h1>Create a New Post</h1>
-</header>
-
 <main>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

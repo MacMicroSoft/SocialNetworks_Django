@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -36,7 +36,7 @@ def sign_up(request):
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                        mail_subject, message, to=[to_email]
+                mail_subject, message, to=[to_email]
             )
             email.send()
             return HttpResponse('Please confirm your email address to complete the registration')
@@ -86,14 +86,25 @@ def sign_out(request):
 
 @login_required
 def profile(request, user_id):
-    profile_date = Profile.objects.select_related('user').filter(id=user_id).first()
+    profile_date = get_object_or_404(Profile, id=user_id)
 
-    if profile_date:
-        user_date = profile_date.id
-        post_date = Posts.objects.filter(user_id=user_date).prefetch_related('images', 'tags')
-        return render(request, 'users/profile.html', {'post_date': post_date, 'profile_date': profile_date})
-    else:
-        return HttpResponse("Profile not found", status=404)
+    if request.method == 'POST':
+        profile_to_follow = profile_date
+
+        if request.user.profile != profile_to_follow:
+            if request.user.profile.follows.filter(id=user_id).exists():
+                request.user.profile.follows.remove(profile_to_follow)
+            else:
+                request.user.profile.follows.add(profile_to_follow)
+
+        return redirect('profile', user_id=profile_date.id)
+
+    is_following = request.user.profile.follows.filter(id=user_id).exists()
+
+    user_date = profile_date.id
+    post_date = Posts.objects.filter(user_id=user_date).prefetch_related('images', 'tags')
+
+    return render(request, 'users/profile.html', {'post_date': post_date, 'profile_date': profile_date, 'is_following': is_following})
 
 
 @login_required
@@ -116,3 +127,25 @@ def profile_settings(request):
     return render(request, 'users/profile_settings.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
+@login_required
+def profile_follow(request, user_id):
+    profile = get_object_or_404(Profile, id=user_id)
+
+    followers = profile.followed_by.all()
+    following = profile.follows.all()
+
+    if request.method == 'POST':
+        if request.user.profile != profile:
+            if request.user.profile.follows.filter(id=user_id).exists():
+                request.user.profile.follows.remove(profile)
+                return redirect('follow', user_id=request.user.profile.id)
+
+    return render(request, 'users/follow.html', {'profile': profile, 'following': following})
+
+
+def profile_followers(request, user_id):
+    profile = get_object_or_404(Profile, id=user_id)
+
+    followers = profile.followed_by.all()
+
+    return render(request, 'users/followers.html', {'profile': profile, 'followers': followers})

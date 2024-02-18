@@ -78,5 +78,4 @@ def post_like(request, pk):
         post.like.remove(request.user.profile)
     else:
         post.like.add(request.user.profile)
-
     return redirect('posts')
